@@ -1,0 +1,311 @@
+11:34:18 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'ds_reset_pulse':
+../Core/Src/main.c:62:8: error: 'PORT' undeclared (first use in this function)
+   62 |    if((PORT->IDR & PinMask)==0)  return 2;         //проверить линию на отсутствие замыкания
+      |        ^~~~
+../Core/Src/main.c:62:8: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:64:4: error: 'TIMER' undeclared (first use in this function)
+   64 |    TIMER->CNT=0;
+      |    ^~~~~
+../Core/Src/main.c: In function 'ds_write_bit':
+../Core/Src/main.c:76:4: error: 'TIMER' undeclared (first use in this function)
+   76 |    TIMER->CNT=0;
+      |    ^~~~~
+../Core/Src/main.c:77:4: error: 'PORT' undeclared (first use in this function)
+   77 |    PORT->ODR &= ~PinMask;                          //потянуть шину к земле
+      |    ^~~~
+../Core/Src/main.c: In function 'ds_read_bit':
+../Core/Src/main.c:88:4: error: 'TIMER' undeclared (first use in this function)
+   88 |    TIMER->CNT=0;
+      |    ^~~~~
+../Core/Src/main.c:89:4: error: 'PORT' undeclared (first use in this function)
+   89 |    PORT->ODR &= ~PinMask;                          //потянуть шину к земле
+      |    ^~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:144:22: error: incompatible type for argument 1 of 'HAL_TIM_Base_Start'
+  144 |   HAL_TIM_Base_Start(htim4);
+      |                      ^~~~~
+      |                      |
+      |                      TIM_HandleTypeDef
+In file included from ../Core/Inc/stm32l1xx_hal_conf.h:265,
+                 from ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h:30,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_tim.h:1579:57: note: expected 'TIM_HandleTypeDef *' but argument is of type 'TIM_HandleTypeDef'
+ 1579 | HAL_StatusTypeDef HAL_TIM_Base_Start(TIM_HandleTypeDef *htim);
+      |                                      ~~~~~~~~~~~~~~~~~~~^~~~
+../Core/Src/main.c:152:22: error: 'PIN' undeclared (first use in this function)
+  152 |    ds_reset_pulse(1<<PIN);          //послать импульс сброса                                       /
+      |                      ^~~
+../Core/Src/main.c:153:18: error: 'SKIP_ROM_ADR' undeclared (first use in this function)
+  153 |    ds_write_byte(SKIP_ROM_ADR,1<<PIN);//разрешить доступ к датчику не используя адрес
+      |                  ^~~~~~~~~~~~
+../Core/Src/main.c:154:18: error: 'CONVERT_TEMP' undeclared (first use in this function)
+  154 |    ds_write_byte(CONVERT_TEMP,1<<PIN);      //запустить преобразование
+      |                  ^~~~~~~~~~~~
+../Core/Src/main.c:158:18: error: 'READ_DATA_COMAND' undeclared (first use in this function)
+  158 |    ds_write_byte(READ_DATA_COMAND,1<<PIN);      //команда, заставляющая датчик выдать 9 байт своей памяти
+      |                  ^~~~~~~~~~~~~~~~
+../Core/Src/main.c:160:4: error: 'ds_buff' undeclared (first use in this function)
+  160 |    ds_buff[i] = ds_read_byte(1<<PIN);
+      |    ^~~~~~~
+../Core/Src/main.c:161:4: error: 'temp' undeclared (first use in this function)
+  161 |    temp = ds_buff[1];
+      |    ^~~~
+../Core/Src/main.c:168:7: error: 'znak' undeclared (first use in this function)
+  168 |       znak =  '-';
+      |       ^~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+11:43:10 **** Incremental Build of configuration Debug for project DS18B20STM32 ****
+make -j12 all 
+arm-none-eabi-gcc -o "DS18B20STM32.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\WORK\STM32\WORKSPACE\DS18B20STM32\STM32L100RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DS18B20STM32.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+c:\program files (x86)\stm32cubeide_1.9.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127\tools\arm-none-eabi\bin\ld.exe: ./Core/Src/OneWire.o: in function `get_ROMid':
+D:/WORK/STM32/WORKSPACE/DS18B20STM32/Debug/../Core/Src/OneWire.c:433: undefined reference to `devInfo'
+c:\program files (x86)\stm32cubeide_1.9.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127\tools\arm-none-eabi\bin\ld.exe: D:/WORK/STM32/WORKSPACE/DS18B20STM32/Debug/../Core/Src/OneWire.c:433: undefined reference to `devInfo'
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:64: DS18B20STM32.elf] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+11:43:10 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:155:22: error: incompatible type for argument 1 of 'HAL_TIM_Base_Start'
+  155 |   HAL_TIM_Base_Start(htim4);
+      |                      ^~~~~
+      |                      |
+      |                      TIM_HandleTypeDef
+In file included from ../Core/Inc/stm32l1xx_hal_conf.h:265,
+                 from ../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal.h:30,
+                 from ../Core/Inc/main.h:30,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32L1xx_HAL_Driver/Inc/stm32l1xx_hal_tim.h:1579:57: note: expected 'TIM_HandleTypeDef *' but argument is of type 'TIM_HandleTypeDef'
+ 1579 | HAL_StatusTypeDef HAL_TIM_Base_Start(TIM_HandleTypeDef *htim);
+      |                                      ~~~~~~~~~~~~~~~~~~~^~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+11:43:11 **** Incremental Build of configuration Debug for project USART2_STM32 ****
+make -j12 all 
+arm-none-eabi-size   USART2_STM32.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11372	     20	   1708	  13100	   332c	USART2_STM32.elf
+Finished building: default.size.stdout
+ 
+11:44:15 **** Incremental Build of configuration Debug for project DS18B20STM32 ****
+make -j12 all 
+arm-none-eabi-gcc -o "DS18B20STM32.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\WORK\STM32\WORKSPACE\DS18B20STM32\STM32L100RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DS18B20STM32.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+c:\program files (x86)\stm32cubeide_1.9.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127\tools\arm-none-eabi\bin\ld.exe: ./Core/Src/OneWire.o: in function `get_ROMid':
+D:/WORK/STM32/WORKSPACE/DS18B20STM32/Debug/../Core/Src/OneWire.c:433: undefined reference to `devInfo'
+c:\program files (x86)\stm32cubeide_1.9.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127\tools\arm-none-eabi\bin\ld.exe: D:/WORK/STM32/WORKSPACE/DS18B20STM32/Debug/../Core/Src/OneWire.c:433: undefined reference to `devInfo'
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:64: DS18B20STM32.elf] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+11:44:15 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "DSDSDS.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\WORK\STM32\WORKSPACE\DSDSDS\STM32L100RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DSDSDS.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: DSDSDS.elf
+ 
+arm-none-eabi-size   DSDSDS.elf 
+arm-none-eabi-objdump -h -S  DSDSDS.elf  > "DSDSDS.list"
+   text	   data	    bss	    dec	    hex	filename
+   8512	     24	   1648	  10184	   27c8	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+Finished building: DSDSDS.list
+ 
+11:44:16 **** Incremental Build of configuration Debug for project USART2_STM32 ****
+make -j12 all 
+arm-none-eabi-size   USART2_STM32.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11372	     20	   1708	  13100	   332c	USART2_STM32.elf
+Finished building: default.size.stdout
+ 
+11:44:21 **** Incremental Build of configuration Debug for project DS18B20STM32 ****
+make -j12 all 
+arm-none-eabi-gcc -o "DS18B20STM32.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\WORK\STM32\WORKSPACE\DS18B20STM32\STM32L100RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DS18B20STM32.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+c:\program files (x86)\stm32cubeide_1.9.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127\tools\arm-none-eabi\bin\ld.exe: ./Core/Src/OneWire.o: in function `get_ROMid':
+D:/WORK/STM32/WORKSPACE/DS18B20STM32/Debug/../Core/Src/OneWire.c:433: undefined reference to `devInfo'
+c:\program files (x86)\stm32cubeide_1.9.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127\tools\arm-none-eabi\bin\ld.exe: D:/WORK/STM32/WORKSPACE/DS18B20STM32/Debug/../Core/Src/OneWire.c:433: undefined reference to `devInfo'
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:64: DS18B20STM32.elf] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+11:44:21 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-size   DSDSDS.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8512	     24	   1648	  10184	   27c8	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+11:44:22 **** Incremental Build of configuration Debug for project USART2_STM32 ****
+make -j12 all 
+arm-none-eabi-size   USART2_STM32.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11372	     20	   1708	  13100	   332c	USART2_STM32.elf
+Finished building: default.size.stdout
+ 
+11:44:38 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-size   DSDSDS.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8512	     24	   1648	  10184	   27c8	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+11:45:38 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-size   DSDSDS.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8512	     24	   1648	  10184	   27c8	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+11:58:27 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-size   DSDSDS.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8512	     24	   1648	  10184	   27c8	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+11:59:32 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-size   DSDSDS.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8512	     24	   1648	  10184	   27c8	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+12:03:23 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-size   DSDSDS.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8512	     24	   1648	  10184	   27c8	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+12:05:19 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-size   DSDSDS.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8512	     24	   1648	  10184	   27c8	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+12:29:59 **** Incremental Build of configuration Debug for project DS18B20STM32 ****
+make -j12 all 
+arm-none-eabi-gcc -o "DS18B20STM32.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\WORK\STM32\WORKSPACE\DS18B20STM32\STM32L100RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DS18B20STM32.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+c:\program files (x86)\stm32cubeide_1.9.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127\tools\arm-none-eabi\bin\ld.exe: ./Core/Src/OneWire.o: in function `get_ROMid':
+D:/WORK/STM32/WORKSPACE/DS18B20STM32/Debug/../Core/Src/OneWire.c:433: undefined reference to `devInfo'
+c:\program files (x86)\stm32cubeide_1.9.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127\tools\arm-none-eabi\bin\ld.exe: D:/WORK/STM32/WORKSPACE/DS18B20STM32/Debug/../Core/Src/OneWire.c:433: undefined reference to `devInfo'
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:64: DS18B20STM32.elf] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+12:30:18 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-size   DSDSDS.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8512	     24	   1648	  10184	   27c8	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+12:31:48 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-size   DSDSDS.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8512	     24	   1648	  10184	   27c8	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+12:34:03 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-size   DSDSDS.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8512	     24	   1648	  10184	   27c8	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+12:35:36 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-size   DSDSDS.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8512	     24	   1648	  10184	   27c8	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+12:39:22 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "DSDSDS.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\WORK\STM32\WORKSPACE\DSDSDS\STM32L100RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DSDSDS.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: DSDSDS.elf
+ 
+arm-none-eabi-size   DSDSDS.elf 
+arm-none-eabi-objdump -h -S  DSDSDS.elf  > "DSDSDS.list"
+   text	   data	    bss	    dec	    hex	filename
+   8512	     24	   1648	  10184	   27c8	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+Finished building: DSDSDS.list
+ 
+12:45:16 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-size   DSDSDS.elf 
+   text	   data	    bss	    dec	    hex	filename
+   8512	     24	   1648	  10184	   27c8	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+13:44:09 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal.o"
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_cortex.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_cortex.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_cortex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_cortex.o"
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_dma.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_dma.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_dma.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_dma.o"
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_exti.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_exti.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_exti.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_exti.o"
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash.o"
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash_ex.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash_ex.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash_ramfunc.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash_ramfunc.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash_ramfunc.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_flash_ramfunc.o"
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_gpio.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_gpio.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_gpio.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_gpio.o"
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_pwr.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_pwr.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_pwr.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_pwr.o"
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_pwr_ex.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_pwr_ex.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_pwr_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_pwr_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rcc.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rcc.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rcc.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rcc.o"
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rcc_ex.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rcc_ex.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rcc_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_rcc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_tim.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_tim.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_tim.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_tim.o"
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_tim_ex.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_tim_ex.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_tim_ex.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_tim_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_uart.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_uart.d" -MT"Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_uart.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Drivers/STM32L1xx_HAL_Driver/Src/stm32l1xx_hal_uart.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32l1xx_hal_msp.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32l1xx_hal_msp.d" -MT"Core/Src/stm32l1xx_hal_msp.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32l1xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32l1xx_it.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32l1xx_it.d" -MT"Core/Src/stm32l1xx_it.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/stm32l1xx_it.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32l1xx.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/system_stm32l1xx.d" -MT"Core/Src/system_stm32l1xx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/system_stm32l1xx.o"
+arm-none-eabi-gcc -o "DSDSDS.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\WORK\STM32\WORKSPACE\DSDSDS\STM32L100RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DSDSDS.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: DSDSDS.elf
+ 
+arm-none-eabi-size   DSDSDS.elf 
+arm-none-eabi-objdump -h -S  DSDSDS.elf  > "DSDSDS.list"
+   text	   data	    bss	    dec	    hex	filename
+  11340	     24	   1720	  13084	   331c	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+Finished building: DSDSDS.list
+ 
+13:44:49 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-size   DSDSDS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11340	     24	   1720	  13084	   331c	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+13:49:10 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-size   DSDSDS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11340	     24	   1720	  13084	   331c	DSDSDS.elf
+Finished building: default.size.stdout
+ 
+13:52:21 **** Incremental Build of configuration Debug for project DSDSDS ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L100xC -c -I../Core/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc -I../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'MX_USART2_UART_Init':
+../Core/Src/main.c:290:3: error: 'huart2' undeclared (first use in this function)
+  290 |   huart2.Instance = USART2;
+      |   ^~~~~~
+../Core/Src/main.c:290:3: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+13:55:53 **** Build of configuration Debug for project USART2_STM32 ****
+make -j12 all 
+arm-none-eabi-size   USART2_STM32.elf 
+   text	   data	    bss	    dec	    hex	filename
+  11372	     20	   1708	  13100	   332c	USART2_STM32.elf
+Finished building: default.size.stdout
+ 

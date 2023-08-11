@@ -1,0 +1,10 @@
+15:49:12 **** Incremental Build of configuration Debug for project ds18b20Viver ****
+make -j12 all 
+arm-none-eabi-size   ds18b20Viver.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9368	     20	   1652	  11040	   2b20	ds18b20Viver.elf
+Finished building: default.size.stdout
+ 
+
+15:49:12 Build Finished. 0 errors, 0 warnings. (took 370ms)
+
